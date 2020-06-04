@@ -27,8 +27,6 @@ def Gatry():
     return list
 
     
-   
-
 
 def Pelando():
     page = requests.get('https://www.pelando.com.br/')
@@ -52,7 +50,7 @@ if __name__ == "__main__":
     list = []
     list2 = []
     list = Gatry()
-    list2 = Pelando()
+   # list2 = Pelando()
 
     app = flask.Flask(__name__)
     
@@ -62,9 +60,13 @@ if __name__ == "__main__":
 <p>A prototype API for distant reading of science fiction novels.</p>'''
 
 
-    @app.route('/books', methods=['GET'])
-    def api_all():
+    @app.route('/gatry', methods=['GET'])
+    def api_gatry():
         return jsonify(list)   
 
-    app.run()
+    @app.route('/pelando', methods=['GET'])
+    def api_pelando():
+        return jsonify(list2) 
+
+    app.run(host='192.168.15.10')
 
