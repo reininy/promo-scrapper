@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:promoscrapperUI/platformselector.dart';
+
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
   final response =
-      await client.get('http://192.168.15.10:5000/gatry');
+      await client.get('http://192.168.15.10:5000/pelando');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
@@ -23,35 +23,21 @@ List<Photo> parsePhotos(String responseBody) {
 class Photo {
   final String name;
   final String price;
-  final String imageurl;
-  final String span;
 
-  Photo({ this.name, this.price, this.imageurl, this.span});
+
+  Photo({ this.name, this.price,} );
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
       name: json['name'] as String,
       price: json['price'] as String,
-      imageurl: json['image'] as String,
-      span: json['span'] as String,
+     
  
     );
   }
 }
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    return MaterialApp(
-      home: PlatformSelector(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
+class Pelando extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
@@ -97,10 +83,11 @@ class PhotosList extends StatelessWidget {
               color: Colors.purple,
             ),
            
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.network(photos[index].imageurl),
+                 Text(photos[index].name, style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
 
                 
                 Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 15),
