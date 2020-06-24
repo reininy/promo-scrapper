@@ -1,10 +1,13 @@
+# -*- coding: latin-1 -*-
+# Encoding schema https://www.python.org/dev/peps/pep-0263
+
 import requests
 from bs4 import BeautifulSoup
 from flask import request, jsonify
 
 
 def Formatter(string):
-    characters_to_remove = "!()@\n"
+    characters_to_remove = "!()@\n\t"
     new_string = string
     for character in characters_to_remove:
         new_string = new_string.replace(character, "")
@@ -25,11 +28,14 @@ def Gatry():
         formatted_name = Formatter(str(name.text))
         price = div.find("p", class_='preco').get_text()
         image = div.find("div", class_='imagem').find('img', src=True)
+        span = div.find("span", class_='data_postado')
+        formatted_span = Formatter(str(span.text))
         id = id + 1
         dict['id'] = id
         dict['name'] = formatted_name
         dict['price'] = price
         dict['image'] = image['src']
+        dict['span'] = formatted_span
 
         list.append(dict)
 
@@ -39,7 +45,7 @@ def Gatry():
     
 
 def Pelando():
-    page = requests.get('https://www.pelando.com.br/')
+    page = requests.get('https://www.pelando.com.br/') 
     soup = BeautifulSoup(page.text, 'html.parser')
     list = []
     id = 0
