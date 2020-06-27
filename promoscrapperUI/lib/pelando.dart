@@ -23,15 +23,19 @@ List<Photo> parsePhotos(String responseBody) {
 class Photo {
   final String name;
   final String price;
+  final String img;
+  final String url;
 
 
-  Photo({ this.name, this.price,} );
+  Photo({ this.name, this.price, this.img, this.url} );
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
       name: json['name'] as String,
       price: json['price'] as String,
-     
+      img: json['image'] as String,
+      url:json['reclameaqui'] as String,
+      
  
     );
   }
@@ -68,40 +72,46 @@ class PhotosList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.all(10),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-      ),
+    return ListView.builder(
+     padding: EdgeInsets.all(10),
+      
       itemCount: photos.length,
-      itemBuilder: (context, index) {
-        return Scaffold(
-            body: Center(
-            child: Container(
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: EdgeInsets.only(
+            top:5,
+            bottom:5,
+          ),
+          child:  Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.purple,
             ),
            
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
               children: [
-                 Text(photos[index].name, style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-
                 
-                Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
+                Image.network(photos[index].img, width: 150,),
 
+                SizedBox(width: 45,),
+                
+                Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 13)),
+
+                if(photos[index].url != null) {
+                  Image.network(photos[index].url)
+                }
               
-
-            
-              ],
-            ),
+            ],
           ),
+
+          
+         
         ),
-        );
+      );
       },
+      
+     
     );
+    
   }
 }

@@ -77,43 +77,60 @@ class MyHomePage extends StatelessWidget {
 
 class PhotosList extends StatelessWidget {
   final List<Photo> photos;
-
+ 
   PhotosList({Key key, this.photos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return ListView.builder(
       padding: EdgeInsets.all(10),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-      ),
       itemCount: photos.length,
       itemBuilder: (context, index) {
-        return Scaffold(
-            body: Center(
-            child: Container(
+           return Padding(
+             padding: EdgeInsets.only(
+               top:5,
+               bottom:5,
+             ),
+             child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.purple,
             ),
            
+           padding: EdgeInsets.only(
+             right:10,
+           ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
               children: [
-                Image.network(photos[index].imageurl),
+                Image.network(photos[index].imageurl, width: 130,),
 
+                SizedBox(width: 10,),
                 
-                Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
+                Flexible(
+                  child:  Column(children: [
 
+                    
+                    
+                    Text(photos[index].name, style: TextStyle(color: Colors.white, fontSize: 18,)),
+                    
+                    SizedBox(height: 25,),
+
+                    Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 15),),
+                  
+                ],
+                ),
+
+              ),
               
 
             
               ],
             ),
           ),
-        ),
         );
+      
+        
       },
     );
   }

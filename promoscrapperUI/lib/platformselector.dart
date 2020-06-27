@@ -28,10 +28,14 @@ class _PlatformSelectorState extends State<PlatformSelector> {
               SizedBox(height: 50),
 
 
-              RaisedButton(
+              ButtonTheme(
+                height: 50,
+                child: RaisedButton(
                 color: Colors.orange,
-                
-                
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)
+                ),
+
                 child: Text('Pelando', style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
 
@@ -42,11 +46,17 @@ class _PlatformSelectorState extends State<PlatformSelector> {
                   );
                 },
               ),
+              ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 20),
 
-              RaisedButton(
+              ButtonTheme(
+                height: 50,
+                child: RaisedButton(
                 color: Colors.red[800],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)
+                ),
 
                 child: Text('Gatry', style: TextStyle(color: Colors.white, fontSize: 20 ),
                 ),
@@ -58,6 +68,7 @@ class _PlatformSelectorState extends State<PlatformSelector> {
                   );
                 }
               ),
+              )
             ],
           ),
         ),
