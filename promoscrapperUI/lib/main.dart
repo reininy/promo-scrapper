@@ -7,7 +7,7 @@ import 'package:promoscrapperUI/platformselector.dart';
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
   final response =
-      await client.get('http://192.168.15.10:5000/gatry');
+      await client.get('http://192.168.15.18:5000/gatry');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);

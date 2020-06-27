@@ -22,5 +22,5 @@ if __name__ == "__main__":
         list2 = Pelando()
         return jsonify(list2) 
 
-    app.run(host='192.168.15.10')
+    app.run(host='192.168.15.18')
 
