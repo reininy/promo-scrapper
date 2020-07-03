@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from main import Gatry, Pelando
+from os import sys
 
 if __name__ == "__main__":
+    ip = sys.argv[1]
     app = Flask(__name__)
     
     @app.route('/', methods=['GET'])
@@ -22,5 +24,5 @@ if __name__ == "__main__":
         list2 = Pelando()
         return jsonify(list2) 
 
-    app.run(host='192.168.15.18')
+    app.run(host=ip)
 

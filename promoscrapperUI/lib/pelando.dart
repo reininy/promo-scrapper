@@ -24,17 +24,14 @@ class Photo {
   final String name;
   final String price;
   final String img;
-  final String url;
 
-
-  Photo({ this.name, this.price, this.img, this.url} );
+  Photo({ this.name, this.price, this.img});
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
       name: json['name'] as String,
       price: json['price'] as String,
       img: json['image'] as String,
-      url:json['reclameaqui'] as String,
       
  
     );
@@ -49,7 +46,7 @@ class Pelando extends StatelessWidget {
       appBar: AppBar(
         title: Text('PromoScrapper'),
         centerTitle: true,
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.black,
       ),
       body: FutureBuilder<List<Photo>>(
         future: fetchPhotos(http.Client()),
@@ -98,9 +95,6 @@ class PhotosList extends StatelessWidget {
                 Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 13)),
 
 
-                photos[index].url != null
-                ? Text(photos[index].url, style: TextStyle(color: Colors.white, fontSize: 15),)
-                : Text("No image")
 
               
             ],

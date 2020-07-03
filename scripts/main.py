@@ -6,28 +6,6 @@ from bs4 import BeautifulSoup
 from flask import request, jsonify
 from selenium import webdriver
 
-
-def ReclameAqui(brand):
-    brands = {'Amazon':'https://www.reclameaqui.com.br/empresa/amazon/'}
-    
-    print(brand)
-    if brand in brands:
-        driver = webdriver.Chrome("chromedriver")
-        driver.get(brands[brand])
-        content = driver.find_element_by_class_name('score')
-        html = content.get_attribute("innerHTML")
-        soup = BeautifulSoup(html, 'html.parser')
-        
-        grade = soup.text
-        driver.close()
-
-        return soup.text
-
-    else: return 'No info'
-
-    
-    
-
 def Formatter(string):
     characters_to_remove = "!()@\n\t"
     new_string = string
@@ -51,6 +29,9 @@ def Gatry():
         price = div.find("p", class_='preco').get_text()
         image = div.find("div", class_='imagem').find('img', src=True)
         span = div.find("span", class_='data_postado')
+        linkloja = div.find("a", class_='link_loja')
+        print(linkloja)
+
         formatted_span = Formatter(str(span.text))
         id = id + 1
         dict['id'] = id
@@ -58,6 +39,7 @@ def Gatry():
         dict['price'] = price
         dict['image'] = image['src']
         dict['span'] = formatted_span
+        dict['linkloja'] = linkloja['href']
 
         list.append(dict)
 
@@ -77,16 +59,6 @@ def Pelando():
             price = div.find("span", class_='thread-price text--b vAlign--all-tt cept-tp size--all-l').get_text()
         except:
             print("An exception occurred")
-        
-        try: 
-            brand = div.find("span", class_='cept-merchant-name text--b text--color-brandPrimary link').get_text()
-            try:
-                reclameaqui = ReclameAqui(brand)
-            except:
-                print("Brand not on the list")
-        except:
-            print("Brand not found")
-
 
         image = div.find("img", class_='thread-image width--all-auto height--all-auto imgFrame-img cept-thread-img', src=True)
         formatted_name = Formatter(str(name))
@@ -95,9 +67,7 @@ def Pelando():
         dict['name'] = formatted_name
         dict['price'] = price
         dict['image'] = image['src']
-        if (reclameaqui != None):
-            dict['reclameaqui'] = reclameaqui
-        
+
 
         list.append(dict)
 

@@ -14,7 +14,7 @@ class _PlatformSelectorState extends State<PlatformSelector> {
       appBar: AppBar(
         title: Text('PromoScrapper'),
         centerTitle: true,
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.black,
       ),
         body: Center(
           
