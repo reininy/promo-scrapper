@@ -7,7 +7,7 @@ import 'package:promoscrapperUI/platformselector.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response = await client.get('http://192.168.15.18:5000/gatry');
+  final response = await client.get('http://192.168.15.11:5000/gatry');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
@@ -109,12 +109,15 @@ class PhotosList extends StatelessWidget {
                   width: 10,
                 ),
                 Flexible(
-                  child: Column(
-                    children: [
-                      Text(photos[index].name,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+
+                          Text(photos[index].name,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 15,
                           )),
                       SizedBox(
                         height: 25,
@@ -141,9 +144,10 @@ class PhotosList extends StatelessWidget {
                                       )));
                             },
                           ),
-                        ],
+                      ],
                       ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

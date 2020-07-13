@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 from main import Gatry, Pelando
 from os import sys
+from flask_cors import CORS
 
 if __name__ == "__main__":
     ip = sys.argv[1]
     app = Flask(__name__)
+    CORS(app)
     
     @app.route('/', methods=['GET'])
     def home():
@@ -16,13 +18,13 @@ if __name__ == "__main__":
     def api_gatry():
         list = []
         list= Gatry()
-        return jsonify(list)   
+        return jsonify(list), 200
 
     @app.route('/pelando', methods=['GET'])
     def api_pelando():
         list2 = []
         list2 = Pelando()
-        return jsonify(list2) 
+        return jsonify(list2), 200 
 
     app.run(host=ip)
 
