@@ -25,7 +25,7 @@ class Photo {
   final String price;
   final String img;
 
-  Photo({ this.name, this.price, this.img});
+  Photo({this.name, this.price, this.img});
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
@@ -88,11 +88,35 @@ class PhotosList extends StatelessWidget {
             child: Row(
               children: [
                 
-                Image.network(photos[index].img, width: 150,),
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    image: DecorationImage(
+                      image: NetworkImage(photos[index].img),
+                    )
+                  ),
+                ),
 
-                SizedBox(width: 45,),
                 
-                Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 13)),
+                
+               Flexible(
+                 child: Padding(
+                   padding: EdgeInsets.all(10),
+                   child: Column(
+                     children: [
+                        Text(photos[index].name, style: TextStyle(color: Colors.white, fontSize: 16)),
+                        SizedBox(height: 20,),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 13)),
+                        )
+                       
+                     ],
+                   ),
+                 ),
+               )
 
 
 

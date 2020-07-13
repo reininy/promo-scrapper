@@ -106,7 +106,7 @@ class PhotosList extends StatelessWidget {
                   width: 180,
                 ),
                 SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 Flexible(
                   child: Padding(
@@ -199,14 +199,9 @@ class _ProductPageState extends State<ProductPage> {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.purple[800]),
       body: ListView(
+        shrinkWrap: true,
         padding: EdgeInsets.all(20),
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-          
-            child: Image.asset('imgs/heart.png', width: 50,),
-
-          ),
           Image.network(photos.imageurl),
           Align(
             child: Text(
@@ -233,7 +228,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   color: Colors.purple[800],
                   child: Text(
-                    'Learn more',
+                    'Open Up',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                   onPressed: () {
