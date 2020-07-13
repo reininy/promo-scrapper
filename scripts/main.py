@@ -54,9 +54,9 @@ def Pelando():
     for div in soup.find_all("div", class_='gridLayout-item threadCardLayout--card'):
         dict = {}
         name = div.find("strong", {"class": "thread-title"}).get_text()
-
+        price = ''
         try:
-            price = div.find("span", class_='thread-price text--b vAlign--all-tt cept-tp size--all-l').get_text()
+            price = div.find("span", class_='thread-price text--b cept-tp size--all-l').get_text()
         except:
             print("An exception occurred")
 
