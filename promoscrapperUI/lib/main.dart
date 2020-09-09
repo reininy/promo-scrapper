@@ -7,7 +7,7 @@ import 'package:promoscrapperUI/platformselector.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response = await client.get('http://<your-ip>:5000/gatry');
+  final response = await client.get('<your-ip>/gatry');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: PlatformSelector(),
     );
   }
@@ -113,39 +114,43 @@ class PhotosList extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
-
-                          Text(photos[index].name,
+                        Text(
+                          photos[index].name,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                          )),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            photos[index].price,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
-                          FlatButton(
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              photos[index].price,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
                             ),
-                            onPressed: () {
-                              Navigator.push(
+                            FlatButton(
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ProductPage(),
-                                      settings: RouteSettings(
-                                        arguments: photos[index],
-                                      )));
-                            },
-                          ),
-                      ],
-                      ),
+                                    builder: (context) => ProductPage(),
+                                    settings: RouteSettings(
+                                      arguments: photos[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -174,16 +179,17 @@ class LinkLoja extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.purple[800],
-          title: Text(title),
-        ),
-        body: WebView(
-          initialUrl: url,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller.complete(webViewController);
-          },
-        ));
+      appBar: AppBar(
+        backgroundColor: Colors.purple[800],
+        title: Text(title),
+      ),
+      body: WebView(
+        initialUrl: url,
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller.complete(webViewController);
+        },
+      ),
+    );
   }
 }
 
@@ -244,9 +250,6 @@ class _ProductPageState extends State<ProductPage> {
                   }),
             ),
           ),
-
-          
-          
         ],
       ),
     );

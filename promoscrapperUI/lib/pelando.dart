@@ -4,11 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response =
-      await client.get('http://<your-ip>:5000/pelando');
-
+  final response = await client.get('<your-ip>/pelando');
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
 }
@@ -32,14 +29,11 @@ class Photo {
       name: json['name'] as String,
       price: json['price'] as String,
       img: json['image'] as String,
-      
- 
     );
   }
 }
 
 class Pelando extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,69 +63,100 @@ class PhotosList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-     padding: EdgeInsets.all(10),
-      
-      itemCount: photos.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: EdgeInsets.only(
-            top:5,
-            bottom:5,
-          ),
-          child:  Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.purple,
-            ),
-           
-            child: Row(
-              children: [
-                
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    image: DecorationImage(
-                      image: NetworkImage(photos[index].img),
-                    )
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('imgs/pelando.png'),
+                    fit: BoxFit.fill,
                   ),
                 ),
-
-                
-                
-               Flexible(
-                 child: Padding(
-                   padding: EdgeInsets.all(10),
-                   child: Column(
-                     children: [
-                        Text(photos[index].name, style: TextStyle(color: Colors.white, fontSize: 16)),
-                        SizedBox(height: 20,),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(photos[index].price, style: TextStyle(color: Colors.white, fontSize: 13)),
-                        )
-                       
-                     ],
-                   ),
-                 ),
-               )
-
-
-
-              
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Pelando Products",
+                style: TextStyle(fontSize: 30),
+              ),
             ],
           ),
-
-          
-         
         ),
-      );
-      },
-      
-     
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: photos.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.only(
+                  top: 5,
+                  bottom: 5,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[300],
+                  ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.network(
+                            photos[index].img,
+                            fit: BoxFit.fill,
+                            width: 150,
+                            height: 120,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 10,
+                        left: 160,
+                        child: Text(
+                          photos[index].name,
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+                      ),
+                      Positioned(
+                        right: 15,
+                        bottom: 10,
+                        child: Text(
+                          photos[index].price,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Positioned(
+                        left: 135,
+                        bottom: 1,
+                        child: FlatButton(
+                          child: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
-    
   }
 }
