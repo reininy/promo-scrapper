@@ -23,15 +23,14 @@ def Gatry():
     id = 0
     for div in soup.find_all("article", class_='promocao'):
         dict = {} ## inicializa o dicionario
-        
         name = div.find("h3")
         formatted_name = Formatter(str(name.text))
         price = div.find("p", class_='preco').get_text()
         image = div.find("div", class_='imagem').find('img', src=True)
         span = div.find("span", class_='data_postado')
         linkloja = div.find("a", class_='link_loja')
+        linkgatry = div.find("a", class_='mais hidden-xs')
         print(linkloja)
-
         formatted_span = Formatter(str(span.text))
         id = id + 1
         dict['id'] = id
@@ -40,10 +39,9 @@ def Gatry():
         dict['image'] = image['src']
         dict['span'] = formatted_span
         dict['linkloja'] = linkloja['href']
-
+        dict['linkgatry'] = 'https://www.gatry.com' +linkgatry['href']
         list.append(dict)
 
-   
     return list
 
 def Pelando():
@@ -67,8 +65,6 @@ def Pelando():
         dict['name'] = formatted_name
         dict['price'] = price
         dict['image'] = image['src']
-
-
         list.append(dict)
 
     return list

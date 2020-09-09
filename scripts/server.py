@@ -13,7 +13,6 @@ if __name__ == "__main__":
         return '''<h1>Produtos</h1>
 <p>A prototype API for Products and devices.</p>'''
 
-
     @app.route('/gatry', methods=['GET'])
     def api_gatry():
         list = []
