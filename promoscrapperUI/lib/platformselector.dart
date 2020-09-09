@@ -45,18 +45,20 @@ class _PlatformSelectorState extends State<PlatformSelector> {
               child: RaisedButton(
                 color: Colors.orange,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Row(
                   children: [
                     Container(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage('imgs/pelando.png'),
-                            fit: BoxFit.fill,
-                          )),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage('imgs/pelando.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 50),
                     Text(
