@@ -7,7 +7,7 @@ import 'package:promoscrapperUI/platformselector.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response = await client.get('<your-ip>/gatry');
+  final response = await client.get('<ip>/gatry');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
