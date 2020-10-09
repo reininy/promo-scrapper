@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from main import Gatry, Pelando
+from main import Gatry, Pelando, reclameaqui
 from os import sys
 from flask_cors import CORS
 
@@ -25,5 +25,14 @@ if __name__ == "__main__":
         list2 = Pelando()
         return jsonify(list2), 200 
 
-    app.run(host=ip)
+    @app.route('/reclameaqui', methods=['POST'])
+    def api_reclameaqui():
+        empresa = {}
+        empresaname = request.form.get('empresa')
+        empresa = reclameaqui(empresaname)
+        print(empresa)
+        return jsonify(empresa), 200
+
+
+app.run(host=ip)
 

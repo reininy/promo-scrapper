@@ -5,6 +5,17 @@ import requests
 from bs4 import BeautifulSoup
 from flask import request, jsonify
 from selenium import webdriver
+import warnings
+
+def formatterloja(string):
+    characters_to_remove = ["Ir", "para", " "]
+    for character in characters_to_remove:
+        string = string.replace(character, "")
+
+    string = string.lower()
+    print(string)
+    
+    return string
 
 def Formatter(string):
     characters_to_remove = "!()@\n\t"
@@ -13,6 +24,39 @@ def Formatter(string):
         new_string = new_string.replace(character, "")
 
     return new_string 
+
+def reclameaqui(empresa):
+    warnings.filterwarnings('ignore')
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    options.add_argument('window-size=1920x1080')
+    driver = webdriver.Chrome('./chromedriver', chrome_options=options)
+    empresainfo = {}
+    score = None
+    info = None
+    try: 
+        url = ('https://www.reclameaqui.com.br/empresa/' + empresa)
+        driver.get(url)
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        score = soup.find("span", class_='score')
+        info = soup.find("span", class_='description')
+    except:
+        print("Corporation not found")
+
+    empresainfo = {}
+    if (score != None):
+        empresainfo['score'] = score.text
+    else:
+        empresainfo['score'] = 'Score não informado'
+    
+    if (info != None):
+        empresainfo['info'] = info.text
+    else:
+        empresainfo['info'] = 'Atribuição não informada'
+ 
+    return empresainfo
+
 
 def Gatry():
     page = requests.get('https://gatry.com/')
@@ -33,12 +77,14 @@ def Gatry():
         print(linkloja)
         formatted_span = Formatter(str(span.text))
         id = id + 1
+        empresa = formatterloja(linkloja.text)
         dict['id'] = id
         dict['name'] = formatted_name
         dict['price'] = price
         dict['image'] = image['src']
         dict['span'] = formatted_span
         dict['linkloja'] = linkloja['href']
+        dict['empresa'] = empresa
         dict['linkgatry'] = 'https://www.gatry.com' +linkgatry['href']
         list.append(dict)
 
